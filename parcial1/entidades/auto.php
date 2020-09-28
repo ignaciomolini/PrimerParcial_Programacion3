@@ -2,7 +2,7 @@
 
 require_once './entidades/fileHandler.php';
 
-class Precio extends FileHandler
+class Auto extends FileHandler
 {
     public $_patente;
     public $_fecha_ingreso;
@@ -29,23 +29,23 @@ class Precio extends FileHandler
 
     public function __toString()
     {
-        return $this->_precio_hora.'*'.$this->_precio_estadia.'*'.$this->_precio_mensual;
+        return $this->_patente.'*'.$this->_fecha_ingreso.'*'.$this->_tipo.'*'.$this->_email;
     }
 
-    public static function savePreciosJson($obj)
+    public static function saveAutosJson($obj)
     {
-        parent::saveJson('./archivos/precios.json', $obj);
+        parent::saveJson('./archivos/autos.json', $obj);
     }
 
-    public static function readPreciosJson()
+    public static function readAutosJson()
     {
-        $lista = parent::readJson('./archivos/precios.json');
+        $lista = parent::readJson('./archivos/autos.json');
         $arrayRetorno = array();
 
         foreach ($lista as $item) 
         {
-            $precio = new Precio($item->_precio_hora, $item->_precio_estadia, $item->_precio_mensual);
-            array_push($arrayRetorno, $precio);
+            $auto = new Autos($item->_patente, $item->_fecha_ingreso, $item->_tipo, $item->_email);
+            array_push($arrayRetorno, $auto);
         }
 
         return $arrayRetorno;

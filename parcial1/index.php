@@ -99,4 +99,26 @@ switch($path_info)
         }
     break;
 
+    case '/ingreso':
+        if($decoded->tipo == 'user')
+        {
+            if($method == 'POST')
+            {
+                $patente = $_POST['patente'] ?? '';
+                $tipo = $_POST['tipo'] ?? '';
+
+                $auto = new Auto($patente, $tipo, $decoded->email);
+                $listaAutos = Auto::readAutosJson();
+
+                array_push($listaAutos, $auto);
+                Auto::saveAutosJson($listaPrecios);
+                echo '<br>Se guardo el auto<br>';    
+            }
+        }
+        else
+        {
+            echo '<br>No tiene los permisos<br>';
+        }
+    break;
+
 }
